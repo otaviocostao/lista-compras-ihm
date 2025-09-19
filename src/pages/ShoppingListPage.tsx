@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import InputField from '../components/InputField';
 import Button from '../components/Button';
 import { Checkbox } from '../components/Checkbox';
-import { X } from 'lucide-react';
+import { LogOut, ShoppingCart, X } from 'lucide-react';
 
 interface Item {
   id: number;
@@ -11,7 +11,11 @@ interface Item {
   completed: boolean;
 }
 
-export function ShoppingListPage() {
+interface ShoppingListPageProps {
+  onLogout: () => void;
+}
+
+export function ShoppingListPage(props: ShoppingListPageProps) {
   const [items, setItems] = useState<Item[]>([
     { id: 1, name: 'Maçãs', completed: false },
     { id: 2, name: 'Leite', completed: false },
@@ -47,9 +51,16 @@ export function ShoppingListPage() {
   };
 
   return (
-    <div className="flex justify-center min-h-screen bg-gray-100 p-4 sm:p-8">
+    <div className="flex flex-col items-center min-h-screen bg-gray-100 ">
+      <header className='flex p-4 items-center bg-white w-full mb-4 shadow-sm justify-between'>
+        <div className='flex'>
+          <ShoppingCart className='bg-blue-600 shadow-md ml-2 text-white p-2 box-content rounded'/>
+            <h1 className="ml-2 text-2xl font-bold text-gray-700">Lista de Compras</h1>
+        </div>
+        <button onClick={props.onLogout}><LogOut className='text-gray-700 cursor-pointer transition-discrete duration-300 hover:text-red-400'/></button>
+      </header>
       <div className="w-full max-w-2xl bg-white rounded-lg shadow-lg p-6">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">Minha Lista de Compras</h1>
+        <h1 className="text-3xl font-bold text-gray-800 mb-4">Adicionar novo item</h1>
        
         <form onSubmit={handleAddItem} className="flex gap-2 mb-6">
           <InputField 
