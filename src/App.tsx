@@ -11,12 +11,16 @@ function App() {
     setIsLoggedIn(true);
   };
 
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+  };
+
   return (
     <div className="App flex-1 w-full h-full">
       {!isLoggedIn ? (
         <LoginPage onLoginSuccess={handleLoginSuccess} />
       ) : (
-        <ShoppingListPage />
+        <ShoppingListPage onLogout={handleLogout} />
       )}
     </div>
   );
